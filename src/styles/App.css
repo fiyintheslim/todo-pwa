@@ -1,0 +1,11 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');  */
+body{
+    box-sizing:border-box;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+*{
+    padding:0px;
+    margin:0px;
+}
+
