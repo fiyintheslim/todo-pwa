@@ -1,0 +1,165 @@
+@import "./variables";
+.container{
+display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+    
+width: 100vw;
+padding-bottom: 1.3rem;
+    @media only screen and (min-width) {
+            min-height: 100vh;
+            width: 100vw;
+    
+        }
+}
+
+.bg {
+    width: 100vw;
+    height: 300px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.topImgLight {
+    background: center url("../images/bg-mobile-light.jpg");
+
+    @media only screen and (min-width: 1024px) {
+        background: center url("../images/bg-desktop-light.jpg");
+
+
+    }
+}
+
+.topImgDark {
+    background: center url("../images/bg-mobile-dark.jpg");
+
+    @media only screen and (min-width: 1024px) {
+        background: center url("../images/bg-desktop-dark.jpg");
+    }
+}
+
+.dark {
+    background: $dark_secondary;
+    color: hsl(0, 0%, 98%)
+}
+
+.light {
+    background: $light_secondary;
+    color: hsl(235, 21%, 11%)
+}
+
+.dark_2 {
+    background: $dark_lighter
+}
+
+.light_2 {
+    background: $light_lighter
+}
+
+.bgDark {
+    background: hsl(235, 21%, 11%);
+    color: hsl(0, 0%, 98%)
+}
+
+.bgLight {
+    background: hsl(0, 0%, 98%);
+color: hsl(235, 21%, 11%)
+}
+
+.content {
+    z-index: 2;
+    margin-top: 13.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 15px;
+
+    @media only screen and (min-width: 1024px) {
+        margin-top: 15rem;
+        padding: 0 200px;
+
+    }
+}
+
+.input,
+.item,
+.info {
+    padding: 0.5rem;
+    width: 88%;
+    border-radius: 1rem;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    font-size: 1.3rem;
+    box-shadow: 0px 2px 15px -9px rgba(0, 0, 0, 0.5);
+
+    @media only screen and (min-width:1024px) {
+        width: $width;
+    }
+}
+
+.input {
+    margin: 1rem auto;
+    height: 3rem;
+}
+
+.items {
+    width: 100%;
+
+
+}
+
+.item {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 3rem;
+    margin: 0.3rem auto;
+
+
+    p {
+        font-size: 0.8rem;
+
+        @media only screen and (min-width: 1024px) {
+            font-size: 1rem;
+        }
+    }
+
+    svg {
+        width: 1rem;
+        height: 1rem;
+        cursor: pointer;
+    }
+}
+
+.info {
+    margin: 1rem auto;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(1, 25, 88, 0.1);
+        backdrop-filter: blur(20px);
+    position: fixed;
+        bottom: 1rem;
+        left: 0;
+        right: 0;
+
+    button {
+        background: hsl(204, 63%, 43%);
+        border: none;
+        outline: none;
+        padding: 0.7rem;
+        border-radius: 0.3rem;
+        box-shadow: 0px 2px 15px -5px rgba(0, 0, 0, 0.5);
+        font-weight: 800;
+    }
+}
+
+.complete {
+    text-decoration: line-through;
+    font-style: italic;
+}
+

@@ -1,0 +1,27 @@
+{
+  "name": "Todo",
+  "short_name": "Todo",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#297bb3",
+  "icons": [
+    {
+      "src": "images/TODO-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "images/TODO-1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    },
+    {
+      "src": "images/maskable_icon.png",
+      "sizes": "568x568",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "name": "todo-from-scratch",
+  "version": "1.0.0",
+  "description": "A todo pwa with build process",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel public/index.html",
+    "lint": "eslint \"src/**/*.{js, ts, jsx, tsx}\" --quiet",
+    "format": "prettier --write \"src/**/*.{js, jsx, ts, tsx}\"",
+    "format:check": "prettier --check \"src/**/*.{js, jsx, ts, tsx}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "todo-from-scratch"
+  },
+  "author": "Fiyin",
+  "license": "ISC",
+  "dependencies": {
+    "node-sass": "^7.0.1",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "styled-components": "^5.3.5",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@parcel/packager-raw-url": "^2.5.0",
+    "@parcel/transformer-sass": "^2.5.0",
+    "@parcel/transformer-webmanifest": "^2.5.0",
+    "@types/node": "^17.0.34",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.4",
+    "@types/styled-components": "^5.1.25",
+    "@types/uuid": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "^5.25.0",
+    "@typescript-eslint/parser": "^5.25.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.5.0",
+    "parcel": "^2.5.0",
+    "typescript": "^4.6.4"
+  },
+  "browserslist": "> 0.5%, last 2 versions, not dead"
+}
