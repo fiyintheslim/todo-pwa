@@ -1,14 +1,16 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');  */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-body{
-    box-sizing:border-box;
+
+body {
+    box-sizing: border-box;
     font-family: 'Josefin Sans', sans-serif;
 }
 
-*{
-    padding:0px;
-    margin:0px;
+* {
+    padding: 0px;
+    margin: 0px;
     font-family: 'Poppins', sans-serif;
     transition: 0.3s ease-out;
-}
 
+}

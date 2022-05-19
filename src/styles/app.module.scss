@@ -1,17 +1,19 @@
 @import "./variables";
-.container{
-display: flex;
+
+.container {
+    display: flex;
     flex-direction: column;
     min-height: 100vh;
     position: relative;
-    
-width: 100vw;
-padding-bottom: 1.3rem;
+
+    width: 100vw;
+    padding-bottom: 1.3rem;
+
     @media only screen and (min-width) {
-            min-height: 100vh;
-            width: 100vw;
-    
-        }
+        min-height: 100vh;
+        width: 100vw;
+
+    }
 }
 
 .bg {
@@ -21,6 +23,7 @@ padding-bottom: 1.3rem;
     top: 0;
     left: 0;
 }
+
 .topImgLight {
     background: center url("../images/bg-mobile-light.jpg");
 
@@ -64,7 +67,7 @@ padding-bottom: 1.3rem;
 
 .bgLight {
     background: hsl(0, 0%, 98%);
-color: hsl(235, 21%, 11%)
+    color: hsl(235, 21%, 11%)
 }
 
 .content {
@@ -141,11 +144,11 @@ color: hsl(235, 21%, 11%)
     align-items: center;
     justify-content: space-between;
     background: rgba(1, 25, 88, 0.1);
-        backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     position: fixed;
-        bottom: 1rem;
-        left: 0;
-        right: 0;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
 
     button {
         background: hsl(204, 63%, 43%);
@@ -161,5 +164,5 @@ color: hsl(235, 21%, 11%)
 .complete {
     text-decoration: line-through;
     font-style: italic;
-}
 
+}

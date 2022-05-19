@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+
+import { useState } from 'react'
 import { v4 as uuid } from "uuid"
 import Head from "./layouts/Head"
 import Item from "./components/IndItem"
@@ -6,6 +7,7 @@ import Container from "./layouts/Container"
 import "./styles/App.css"
 import * as style from './styles/app.module.scss'
 import light from "./images/bg-desktop-light.jpg"
+
 
 
 const App = () => {
@@ -30,6 +32,7 @@ const App = () => {
         }
 
     }
+
     function x(e: React.MouseEvent<SVGSVGElement, MouseEvent>, id: string) {
         let newTodo = todo.map((ind) => {
 
@@ -41,12 +44,14 @@ const App = () => {
         })
 
         addTodo(newTodo)
+
     }
 
 
     return (
         <>
             <Container isDark={isDark}>
+
                 <div className={`${style.bg} ${isDark ? style.topImgDark : style.topImgLight}`}>
 
                 </div>
@@ -54,6 +59,7 @@ const App = () => {
                     <Head isDark={isDark} setDark={setDark} />
                     <input className={`${style.input} ${isDark ? style.dark : style.light}`} type="text" onKeyUp={(e) => getItem(e)} placeholder="Create a new todo" />
                     <ul className={style.items}>
+
                         {todo.map(i => {
                             return (
                                 <Item isDark={isDark} key={i.id} id={i.id} complete={i.completed} x={x}>
@@ -63,11 +69,13 @@ const App = () => {
                         })}
 
                     </ul>
+
                     <div className={style.info}>
                         <p className="last">
                             <span id="remain">{todo.filter((item) => !item.completed).length} {todo.length <= 1 ? "item" : "items"} left</span>
                         </p>
                         <button type="button" id="clear" onClick={() => clear()} >clear completed</button>
+
                     </div>
                 </div>
 

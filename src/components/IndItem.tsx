@@ -1,5 +1,7 @@
+
 import * as style from "../styles/app.module.scss"
 import cross from "../images/icon-check.svg"
+
 
 interface Props {
     children: React.ReactNode,
@@ -8,6 +10,7 @@ interface Props {
     x: Function,
     id: string
 }
+
 
 const IndItem = ({ children, isDark, x, id, complete }: Props) => {
 
