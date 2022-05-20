@@ -1,1 +1,1 @@
-{"name":"Todo","short_name":"Todo","start_url":"/","scope":"/","display":"standalone","orientation":"any","theme_color":""}
+{"name":"Todo App","short_name":"TODO","start_url":"/","scope":"/","display":"standalone","orientation":"any","theme_color":"#297bb3","background_color":"#297bb3","icons":[{"src":"/TODO-512.be1af7aa.png","sizes":"512x512","type":"image/png"},{"src":"/TODO-1024.a2e80a88.png","sizes":"1024x1024","type":"image/png"},{"src":"/maskable_icon.463a6d41.png","sizes":"568x568","type":"image/png","purpose":"maskable"}]}

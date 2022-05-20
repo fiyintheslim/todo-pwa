@@ -17,7 +17,7 @@
 }
 
 .bg {
-    width: 100vw;
+    width: 100%;
     height: 300px;
     position: absolute;
     top: 0;
@@ -26,16 +26,18 @@
 
 .topImgLight {
     background: center url("../images/bg-mobile-light.jpg");
+    background-size: cover;
 
     @media only screen and (min-width: 1024px) {
         background: center url("../images/bg-desktop-light.jpg");
-
+        
 
     }
 }
 
 .topImgDark {
     background: center url("../images/bg-mobile-dark.jpg");
+    background-size: cover;
 
     @media only screen and (min-width: 1024px) {
         background: center url("../images/bg-desktop-dark.jpg");

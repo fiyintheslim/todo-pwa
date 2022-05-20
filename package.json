@@ -2,9 +2,10 @@
   "name": "todo-from-scratch",
   "version": "1.0.0",
   "description": "A todo pwa with build process",
-  "main": "index.js",
   "scripts": {
     "dev": "parcel public/index.html",
+    "build": "parcel build public/index.html",
+    "prodTest": "npx serve dist",
     "lint": "eslint \"src/**/*.{js, ts, jsx, tsx}\" --quiet",
     "format": "prettier --write \"src/**/*.{js, jsx, ts, tsx}\"",
     "format:check": "prettier --check \"src/**/*.{js, jsx, ts, tsx}\""
@@ -16,6 +17,8 @@
   "author": "Fiyin",
   "license": "ISC",
   "dependencies": {
+    "@parcel/service-worker": "^2.5.0",
+    "@swc/helpers": "^0.3.13",
     "node-sass": "^7.0.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",

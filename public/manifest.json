@@ -1,11 +1,12 @@
 {
-  "name": "Todo",
-  "short_name": "Todo",
+  "name": "Todo App",
+  "short_name": "TODO",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
   "theme_color": "#297bb3",
+  "background_color": "#297bb3",
   "icons": [
     {
       "src": "images/TODO-512.png",

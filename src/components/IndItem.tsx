@@ -1,4 +1,3 @@
-
 import * as style from "../styles/app.module.scss"
 import cross from "../images/icon-check.svg"
 
