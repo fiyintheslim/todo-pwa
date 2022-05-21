@@ -5,7 +5,7 @@ import Item from "./components/IndItem"
 import Container from "./layouts/Container"
 import "./styles/App.css"
 import * as style from './styles/app.module.scss'
-import light from "./images/bg-desktop-light.jpg"
+
 
 
 

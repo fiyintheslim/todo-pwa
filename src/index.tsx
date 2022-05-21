@@ -13,5 +13,5 @@ function Index() {
 
 render(<Index />, document.querySelector("#root"))
 
-registerSW()
+// registerSW()
 

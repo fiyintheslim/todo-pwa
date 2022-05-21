@@ -7,7 +7,13 @@ self.addEventListener("install", (event:any)=>{
     event.waitUntil(
         caches.open("assets")
         .then((cache)=>{
-            cache.addAll(assets)
+            return cache.addAll(assets)
         })
     )
+})
+
+self.addEventListener("fetch", (event:any)=>{
+    console.log("intercepting event")
+
+    event.respondWith(new Response("Response"))
 })
