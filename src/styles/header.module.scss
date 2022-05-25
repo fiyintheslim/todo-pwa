@@ -1,3 +1,15 @@
+@import "./variables";
+@import "./mixins";
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 3rem auto;
+    position: relative;
+    padding: 0 3rem;
+}
+
 .logo {
     letter-spacing: 1rem;
     font-size: 20px;
@@ -5,15 +17,14 @@
     color: white;
 }
 
-.top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
 .switch {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+    width: 3rem;
+    height: 3rem;
+    border-radius: 100%;
+    padding: 0.5rem;
+    @include button;
+    svg{
+
+    }
 }

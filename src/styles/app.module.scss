@@ -1,14 +1,14 @@
 @import "./variables";
+@import "./mixins";
 
 .container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     position: relative;
-
-    width: 100vw;
     padding-bottom: 1.3rem;
-
+    display: flex;
+    width: 100vw;
     @media only screen and (min-width) {
         min-height: 100vh;
         width: 100vw;
@@ -19,47 +19,38 @@
 .bg {
     width: 100%;
     height: 300px;
-    position: absolute;
+    position: sticky;
     top: 0;
     left: 0;
-}
-
-.topImgLight {
-    background: center url("../images/bg-mobile-light.jpg");
-    background-size: cover;
-
-    @media only screen and (min-width: 1024px) {
-        background: center url("../images/bg-desktop-light.jpg");
-        
-
-    }
-}
-
-.topImgDark {
-    background: center url("../images/bg-mobile-dark.jpg");
-    background-size: cover;
-
-    @media only screen and (min-width: 1024px) {
-        background: center url("../images/bg-desktop-dark.jpg");
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 5;
+    .bgIMG{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top:0;
+        left:0;
+        object-fit: cover;
     }
 }
 
 .dark {
     background: $dark_secondary;
-    color: hsl(0, 0%, 98%)
+    color: hsl(0, 0%, 98%);
+    textarea, input{
+        color: hsl(0, 0%, 98%);
+    }
+    
 }
 
 .light {
     background: $light_secondary;
-    color: hsl(235, 21%, 11%)
-}
-
-.dark_2 {
-    background: $dark_lighter
-}
-
-.light_2 {
-    background: $light_lighter
+    color: hsl(235, 21%, 11%);
+    textarea, input{
+        color: hsl(235, 21%, 11%);
+    }
 }
 
 .bgDark {
@@ -74,20 +65,19 @@
 
 .content {
     z-index: 2;
-    margin-top: 13.5rem;
+    margin-top: 3.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0 15px;
-
+    flex-grow: 1;
     @media only screen and (min-width: 1024px) {
-        margin-top: 15rem;
+        margin-top: 6rem;
         padding: 0 200px;
 
     }
 }
 
-.input,
 .item,
 .info {
     padding: 0.5rem;
@@ -111,31 +101,12 @@
 
 .items {
     width: 100%;
-
-
-}
-
-.item {
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 3rem;
-    margin: 0.3rem auto;
-
-
-    p {
-        font-size: 0.8rem;
-
-        @media only screen and (min-width: 1024px) {
-            font-size: 1rem;
-        }
-    }
-
-    svg {
-        width: 1rem;
-        height: 1rem;
-        cursor: pointer;
+    display: grid;
+    grid-template: auto / 1fr;
+    grid-gap: 1rem;
+    margin-bottom: 5rem;
+    @media only screen and (min-width: 1024px){
+        grid-template: auto / 1fr 1fr;
     }
 }
 
@@ -151,15 +122,14 @@
     bottom: 1rem;
     left: 0;
     right: 0;
-
+    p{
+        margin-left: 1rem;
+    }
     button {
-        background: hsl(204, 63%, 43%);
-        border: none;
-        outline: none;
         padding: 0.7rem;
         border-radius: 0.3rem;
-        box-shadow: 0px 2px 15px -5px rgba(0, 0, 0, 0.5);
         font-weight: 800;
+        @include button;
     }
 }
 
@@ -167,4 +137,73 @@
     text-decoration: line-through;
     font-style: italic;
 
+}
+
+.empty{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.dialog{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    top:0;
+    right:0;
+    z-index: 7;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.panel{
+    width: 100%;
+    border-radius: 0.5rem;
+    margin: 0rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: hidden;
+    position: relative;
+    h3{
+        font-size: 2rem;
+        width: 100%;
+        padding:3.5rem 1rem 1rem;
+        background: $background;
+        border-bottom: solid 1px $backgroundActive;
+        word-break: break-word;
+
+    }
+    p{
+        margin: 1rem;
+        font-size: 1.3rem;
+    }
+    svg{
+        cursor: pointer;
+    }
+    @media only screen and (min-width: 1024px){
+        width: 40rem;
+    }
+}
+.dialogFooter{
+    margin: 1rem;
+}
+.close{
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    width: 2rem;
+    height: 2rem;
+    transition: none;
+    &:hover{
+        fill: red;
+    }
+    
 }

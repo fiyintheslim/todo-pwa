@@ -17,11 +17,13 @@
   "author": "Fiyin",
   "license": "ISC",
   "dependencies": {
+    "@headlessui/react": "^1.6.2",
     "@parcel/service-worker": "^2.5.0",
     "@swc/helpers": "^0.3.13",
     "node-sass": "^7.0.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-toastify": "^9.0.1",
     "styled-components": "^5.3.5",
     "uuid": "^8.3.2"
   },
@@ -41,6 +43,7 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
+    "os-browserify": "^0.3.0",
     "parcel": "^2.5.0",
     "typescript": "^4.6.4"
   },

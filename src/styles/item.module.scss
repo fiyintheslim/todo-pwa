@@ -1,0 +1,71 @@
+@import "./variables";
+@import './mixins';
+.item {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0.3rem auto;
+    width: 20rem;
+    height: 15rem;
+    border-radius: 1rem;
+    box-shadow: 1px 2px 3px -1px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+
+    @media only screen and (min-width: 1024px){
+        width: 100%;
+    }
+
+    h3{
+        width: 50%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    p {
+        font-size: 0.8rem;
+        margin-top: 1.5rem;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 80%;
+        @media only screen and (min-width: 1024px) {
+            font-size: 1rem;
+        }
+    }
+
+    svg {
+        width: 1rem;
+        height: 1rem;
+        cursor: pointer;
+    }
+}
+p.complete{
+    text-decoration: line-through;
+    font-style: italic;
+}
+button.complete, button.uncomplete{
+    @include button;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    border-radius: 2rem;
+    width: 3rem;
+    height: 3rem;
+    svg{
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+}
+button.uncomplete{
+    background: rgba(253, 3, 3, 0.753);
+}
+
+.expand{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}

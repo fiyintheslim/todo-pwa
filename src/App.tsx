@@ -1,26 +1,28 @@
-import { useState } from 'react'
-import { v4 as uuid } from "uuid"
+import React, { useState } from 'react'
+import {Dialog} from "@headlessui/react"
 import Head from "./layouts/Head"
 import Item from "./components/IndItem"
 import Container from "./layouts/Container"
+import Input from "./components/Input"
 import "./styles/App.css"
 import * as style from './styles/app.module.scss'
+import {Todo} from "./utilities/types"
+import darkBG from "./images/bg-desktop-dark.jpg"
+import lightBG from "./images/bg-desktop-light.jpg"
+import TrashSVG from "./components/TrashSVG"
+import XSVG from "./components/XSVG"
 
 
 
 
 const App = () => {
     const [isDark, setDark] = useState(true);
-    const [todo, addTodo] = useState([{ id: uuid(), todo: "say hello to the new neighbours", completed: false }]);
+    const [todo, addTodo] = useState<Todo[]>([]);
+    const [expanded, setExpanded] = useState<Todo | undefined>(undefined)
 
-    function getItem(e: any) {
-
-        if (e.which === 13 && e.target.value !== "") {
-            addTodo([...todo, { id: uuid(), todo: e.target.value, completed: false }])
-            e.target.value = "";
-            console.log(uuid())
-
-        }
+    function getItem(item:Todo) {
+        console.log(item)
+        addTodo([...todo, item])
     }
     function clear() {
         if (todo.length > 0) {
@@ -31,8 +33,39 @@ const App = () => {
         }
 
     }
+    function openDB() {
+        const db = window.indexedDB;
+
+        const request = db.open("todoDB", 1)
+
+        request.onerror = (e) => {
+            console.log("Error in indexedDB", e.target)
+        }
+
+        request.onsuccess = (e) => {
+            console.log("Success in indexedDB", e.target)
+        }
+
+        request.onupgradeneeded = (e: any) => {
+            const db = e.target?.result
+            const objectStore = db.createObjectStore("list", { keyPath: "id" })
+
+            objectStore.createIndex("title", "title", { unique: false })
+
+            db.transaction(["list"], "readonly")
+        }
+    }
+    function expand(e:React.MouseEvent, todo:Todo) {
+        e.stopPropagation();
+        setExpanded(todo)
+    }
+    function hide () {
+        
+        setExpanded(undefined)
+    }
 
     function x(e: React.MouseEvent<SVGSVGElement, MouseEvent>, id: string) {
+        
         let newTodo = todo.map((ind) => {
 
             if (ind.id === id) {
@@ -51,23 +84,27 @@ const App = () => {
         <>
             <Container isDark={isDark}>
 
-                <div className={`${style.bg} ${isDark ? style.topImgDark : style.topImgLight}`}>
-
+                <div className={`${style.bg} `}>
+                    <img className={style.bgIMG} src={isDark ? darkBG : lightBG} />
+                    <Head isDark={isDark} setDark={setDark} />
+                    <Input getItem={getItem} globalStyle={style} isDark={isDark}  />
                 </div>
                 <div className={style.content}>
-                    <Head isDark={isDark} setDark={setDark} />
-                    <input className={`${style.input} ${isDark ? style.dark : style.light}`} type="text" onKeyUp={(e) => getItem(e)} placeholder="Create a new todo" />
+                    {todo.length > 0 ?
                     <ul className={style.items}>
 
-                        {todo.map(i => {
+                        {todo.map((i) => {
                             return (
-                                <Item isDark={isDark} key={i.id} id={i.id} complete={i.completed} x={x}>
-                                    {i.todo}
-                                </Item>
+                                <Item item={i} isDark={isDark} key={i.id} id={i.id} complete={i.completed} x={x} expand={expand} />
                             )
                         })}
 
                     </ul>
+                    :
+                    <div className={style.empty}>
+                        <p>Items you add appear here.</p>
+                    </div>
+                    }
 
                     <div className={style.info}>
                         <p className="last">
@@ -79,6 +116,20 @@ const App = () => {
                 </div>
 
             </Container>
+            <Dialog
+                open={!!expanded}
+                onClose={()=>hide()}
+                className={style.dialog}
+            >
+                <Dialog.Panel className={`${style.panel} ${isDark ? style.dark : style.light}`}>
+                    <h3>{expanded?.title}</h3>
+                    <p>{expanded?.todo}</p>
+                    <div className={style.dialogFooter}>
+                        <TrashSVG  />
+                    </div>
+                    <XSVG onClick={()=>hide()} className={style.close} />
+                </Dialog.Panel>
+            </Dialog>
         </>
     )
 }
