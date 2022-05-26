@@ -1,14 +1,16 @@
+import {Todo} from "./types";
+
+const version = 1;
+
 export function openDB() {
     const db = window.indexedDB;
-
-    const request = db.open("todoDB", 1)
-
-    request.onerror = (e) => {
-        console.log("Error in indexedDB", e.target)
+    const request = db.open("todoDB", version)
+    request.onerror = (e:any) => {
+        console.log("Error in indexedDB", e.target.error)
     }
 
     request.onsuccess = (e:any) => {
-        console.log("Success in indexedDB", e.target)
+        console.log("Success in indexedDB", request.result)
         const db = request.result
 
         db.onversionchange = () =>{
@@ -25,12 +27,86 @@ export function openDB() {
 
     }
 
-    return request
+    
 }
 
-export function loadData (db: IDBOpenDBRequest) {
-    const request = db.result;
-    const transaction = request.transaction("list", "readonly");
+export function loadData (setData:Function) {
+    const db = window.indexedDB;
+    const request = db.open("todoDB", version)
+    
 
-    const data = transaction.objectStore("list")
+    request.onerror = (e:any) => {
+        console.log("error loading data", e.target.error)
+    }
+
+    request.onsuccess = (e:any)=>{
+        console.log("loading data success", e.target.result)
+        const transaction = e.target.result.transaction("list", "readonly");
+
+        const data = transaction.objectStore("list")
+
+        const operation = data.getAll()
+        operation.onerror = (e:any) => {
+            console.log("Error loading data")
+        }
+        operation.onsuccess = (e:any) => {
+            console.log("Success loading todo data", e.target.result)
+            setData(e.target.result)
+        }
+        
+    }
+    
+}
+
+export function addData (data:Todo) {
+    console.log("adding")
+    const db = window.indexedDB;
+    const request = db.open("todoDB", version);
+    
+
+    
+
+    request.onerror =  (e:any) => {
+        console.log("Error saving data", e.target.error)
+    }
+
+    request.onsuccess = (e:any) => {
+        const transaction = request.result.transaction("list", "readwrite");
+
+        const objectStore = transaction.objectStore("list");
+        
+        const operation = objectStore.add(data);
+
+        operation.onerror = () => {
+            console.log("Error in adding to list", )
+        }
+
+        operation.onsuccess = (e:any) => {
+            console.log("added successfully", e.target.result)
+        }
+        
+    }
+}
+
+export function removeOne (id:string) {
+    const db = window.indexedDB;
+    const request = db.open("todoDB", version);
+
+    request.onerror = (e:any) => {
+        console.log("Error deleting one todo", e.target.error)
+    }
+
+    request.onsuccess = (e:any) => {
+        const transaction = e.target.result.transaction("list", "readwrite");
+        const store = transaction.objectStore("list");
+        const remove = store.delete(id)
+
+        remove.onerror = (e:any) => {
+            console.log("Error deleting todo item", e.target.error)
+        }
+
+        remove.onsuccess = (e:any) => {
+            console.log("Successfully deleted item", e.target.result)
+        }
+    }
 }

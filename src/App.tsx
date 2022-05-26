@@ -11,7 +11,7 @@ import darkBG from "./images/bg-desktop-dark.jpg"
 import lightBG from "./images/bg-desktop-light.jpg"
 import TrashSVG from "./components/TrashSVG"
 import XSVG from "./components/XSVG"
-import {openDB} from "./utilities/db"
+import {openDB, addData , loadData, removeOne} from "./utilities/db"
 
 
 
@@ -24,12 +24,17 @@ const App = () => {
     
     useEffect(()=>{
         const db = openDB()
-        dbRef.current = db
+        loadData(addTodo)
+        
     }, [])
 
     function getItem(item:Todo) {
-        console.log(item)
+       
         addTodo([...todo, item])
+        
+        addData(item)
+        
+        
     }
     function clear() {
         if (todo.length > 0) {
@@ -46,6 +51,7 @@ const App = () => {
             const filtered = todo.filter(item=>item.id !== id);
             addTodo(filtered)
             hide()
+            removeOne(id)
         }
     }
     function expand(e:React.MouseEvent, todo:Todo) {
