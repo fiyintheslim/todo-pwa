@@ -7,7 +7,10 @@ self.addEventListener("install", (event:any)=>{
     event.waitUntil(
         caches.open("assets")
         .then((cache)=>{
-            return cache.addAll(manifest)
+            return cache.addAll(assets)
+        })
+        .catch((err)=>{
+            console.log("install error", err)
         })
     )
 })
@@ -47,15 +50,15 @@ self.addEventListener("fetch", (event:any)=>{
 
     }
 
-    // const cacheFirst = caches.match(event.request)
-    // .then((res)=>{
-    //     if(res){
-    //         return res;
-    //     }else{
-    //         return fetch(event.request)
-    //     }
-    // })
+    const cacheFirst = caches.match(event.request)
+    .then((res)=>{
+        if(res){
+            return res;
+        }else{
+            return fetch(event.request)
+        }
+    })
 
-    event.respondWith(handleResponse(event))
+    event.respondWith(cacheFirst)
 })
 
