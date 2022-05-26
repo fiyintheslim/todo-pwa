@@ -39,9 +39,9 @@ self.addEventListener("fetch", (event:any)=>{
     async function handleResponse (e:any){
         const cachedResponse = await caches.match(e.request)
         
-        const networkFetch = await fetch(e.request)
+        const networkFetch = await fetch(e.request.url)
         const assets = await caches.open("assets")
-        await assets.put(e.request, networkFetch.clone());
+        await assets.put(e.request, networkFetch);
         if(cachedResponse){
             return cachedResponse
         }else{
@@ -59,6 +59,6 @@ self.addEventListener("fetch", (event:any)=>{
         }
     })
 
-    event.respondWith(cacheFirst)
+    event.respondWith(handleResponse(event))
 })
 
