@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import {Dialog} from "@headlessui/react"
 import Head from "./layouts/Head"
 import Item from "./components/IndItem"
@@ -11,6 +11,7 @@ import darkBG from "./images/bg-desktop-dark.jpg"
 import lightBG from "./images/bg-desktop-light.jpg"
 import TrashSVG from "./components/TrashSVG"
 import XSVG from "./components/XSVG"
+import {openDB} from "./utilities/db"
 
 
 
@@ -19,6 +20,12 @@ const App = () => {
     const [isDark, setDark] = useState(true);
     const [todo, addTodo] = useState<Todo[]>([]);
     const [expanded, setExpanded] = useState<Todo | undefined>(undefined)
+    const dbRef = useRef<null | IDBOpenDBRequest>(null)
+    
+    useEffect(()=>{
+        const db = openDB()
+        dbRef.current = db
+    }, [])
 
     function getItem(item:Todo) {
         console.log(item)
@@ -33,26 +40,12 @@ const App = () => {
         }
 
     }
-    function openDB() {
-        const db = window.indexedDB;
-
-        const request = db.open("todoDB", 1)
-
-        request.onerror = (e) => {
-            console.log("Error in indexedDB", e.target)
-        }
-
-        request.onsuccess = (e) => {
-            console.log("Success in indexedDB", e.target)
-        }
-
-        request.onupgradeneeded = (e: any) => {
-            const db = e.target?.result
-            const objectStore = db.createObjectStore("list", { keyPath: "id" })
-
-            objectStore.createIndex("title", "title", { unique: false })
-
-            db.transaction(["list"], "readonly")
+    function remove (id?:string) {
+        if(id){
+            console.log("remove", id)
+            const filtered = todo.filter(item=>item.id !== id);
+            addTodo(filtered)
+            hide()
         }
     }
     function expand(e:React.MouseEvent, todo:Todo) {
@@ -64,19 +57,14 @@ const App = () => {
         setExpanded(undefined)
     }
 
-    function x(e: React.MouseEvent<SVGSVGElement, MouseEvent>, id: string) {
-        
+    function x(e: React.MouseEvent<SVGSVGElement, MouseEvent>, id: string) {  
         let newTodo = todo.map((ind) => {
-
             if (ind.id === id) {
-                console.log("match")
                 return { ...ind, completed: !ind.completed }
             }
             return ind
         })
-
         addTodo(newTodo)
-
     }
 
 
@@ -125,7 +113,7 @@ const App = () => {
                     <h3>{expanded?.title}</h3>
                     <p>{expanded?.todo}</p>
                     <div className={style.dialogFooter}>
-                        <TrashSVG  />
+                        <TrashSVG onClick={()=>remove(expanded?.id)} />
                     </div>
                     <XSVG onClick={()=>hide()} className={style.close} />
                 </Dialog.Panel>
