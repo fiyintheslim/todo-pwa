@@ -11,7 +11,7 @@ import darkBG from "./images/bg-desktop-dark.jpg"
 import lightBG from "./images/bg-desktop-light.jpg"
 import TrashSVG from "./components/TrashSVG"
 import XSVG from "./components/XSVG"
-import {openDB, addData , loadData, removeOne} from "./utilities/db"
+import {openDB, addData , loadData, removeOne, removeMany} from "./utilities/db"
 
 
 
@@ -38,10 +38,14 @@ const App = () => {
     }
     function clear() {
         if (todo.length > 0) {
+            let toBeRem = todo.filter(i => {
+                return i.completed === true
+            })
             let rem = todo.filter(i => {
                 return i.completed === false
             })
             addTodo(rem)
+            removeMany(toBeRem)
         }
 
     }

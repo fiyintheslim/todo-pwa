@@ -110,3 +110,28 @@ export function removeOne (id:string) {
         }
     }
 }
+
+export function removeMany (ids:Todo[]) {
+    const db = window.indexedDB;
+    const request = db.open("todoDB", version);
+
+    request.onerror = (e:any) => {
+        console.log("Error while opening database for deleting many entries")
+    }
+
+    request.onsuccess = (e:any) => {
+        const transaction = e.target.result.transaction("list", "readwrite");
+        const storage = transaction.objectStore("list");
+        ids.forEach(id=>{
+            const del = storage.delete(id.id)
+            del.onerror = (e:any) => {
+                console.log("Error deleting many indexes")
+            }
+
+            del.onsuccess = () => {
+                console.log("successfully deleted in batch")
+            }
+
+        })
+    }
+}
