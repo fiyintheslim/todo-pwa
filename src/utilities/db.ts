@@ -40,7 +40,7 @@ export function loadData (setData:Function) {
     }
 
     request.onsuccess = (e:any)=>{
-        console.log("loading data success", e.target.result)
+        
         const transaction = e.target.result.transaction("list", "readonly");
 
         const data = transaction.objectStore("list")
@@ -50,7 +50,7 @@ export function loadData (setData:Function) {
             console.log("Error loading data")
         }
         operation.onsuccess = (e:any) => {
-            console.log("Success loading todo data", e.target.result)
+            
             setData(e.target.result)
         }
         
@@ -82,7 +82,7 @@ export function addData (data:Todo) {
         }
 
         operation.onsuccess = (e:any) => {
-            console.log("added successfully", e.target.result)
+            
         }
         
     }
@@ -106,7 +106,7 @@ export function removeOne (id:string) {
         }
 
         remove.onsuccess = (e:any) => {
-            console.log("Successfully deleted item", e.target.result)
+            
         }
     }
 }
@@ -129,7 +129,7 @@ export function removeMany (ids:Todo[]) {
             }
 
             del.onsuccess = () => {
-                console.log("successfully deleted in batch")
+             
             }
 
         })
