@@ -7,7 +7,7 @@ self.addEventListener("install", (event:any)=>{
     event.waitUntil(
         caches.open("assets")
         .then((cache)=>{
-            cache.addAll(assets)
+            return cache.addAll(assets)
         })
     )
 })
