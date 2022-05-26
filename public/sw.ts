@@ -7,7 +7,7 @@ self.addEventListener("install", (event:any)=>{
     event.waitUntil(
         caches.open("assets")
         .then((cache)=>{
-            return cache.addAll(assets)
+            return cache.addAll(manifest)
         })
     )
 })
@@ -38,12 +38,23 @@ self.addEventListener("fetch", (event:any)=>{
         
         const networkFetch = await fetch(e.request)
         const assets = await caches.open("assets")
-
         await assets.put(e.request, networkFetch.clone());
-
-        return cachedResponse || networkFetch
+        if(cachedResponse){
+            return cachedResponse
+        }else{
+            return networkFetch
+        }
 
     }
+
+    // const cacheFirst = caches.match(event.request)
+    // .then((res)=>{
+    //     if(res){
+    //         return res;
+    //     }else{
+    //         return fetch(event.request)
+    //     }
+    // })
 
     event.respondWith(handleResponse(event))
 })
