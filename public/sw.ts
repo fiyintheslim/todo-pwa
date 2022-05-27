@@ -5,7 +5,7 @@ const assets = manifest.filter((asset, i)=>manifest.indexOf(asset) === i)
 self.addEventListener("install", (event:any)=>{
     console.log("Installing service worker", assets)
     event.waitUntil(
-        caches.open("assets")
+        caches.open(version)
         .then((cache)=>{
             return cache.addAll(assets)
         })
@@ -40,7 +40,7 @@ self.addEventListener("fetch", (event:any)=>{
         const cachedResponse = await caches.match(e.request)
         
         const networkFetch = await fetch(e.request.url)
-        const assets = await caches.open("assets")
+        const assets = await caches.open(version)
         await assets.put(e.request, networkFetch);
         if(cachedResponse){
             return cachedResponse
