@@ -1,6 +1,7 @@
 {
   "name": "Todo App",
   "short_name": "TODO",
+  "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
