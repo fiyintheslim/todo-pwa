@@ -44,7 +44,7 @@ self.addEventListener("fetch", (event:any)=>{
         const networkFetch = await fetch(e.request.url)
         // const cachedResponse = await assets.match(e.request)
         await assets.put(e.request, networkFetch.clone());
-        
+        console.log("saving", networkFetch)
         return networkFetch
     }
 
@@ -78,11 +78,15 @@ self.addEventListener("fetch", (event:any)=>{
     event.respondWith(
         handleResponse(event)
         .catch((err)=>{
-            console.log("Error loading data", err)
+            
             caches.open('assets').then(cache=>{
-                const match = cache.match(event.request)
-                console.log("Error loading data", err, match)
-                return match
+                cache.match(event.request)
+                .then((match)=>{
+                    console.log("Error loading data", err, match)
+                    return match
+                })
+                
+                
             })
         })
         )
