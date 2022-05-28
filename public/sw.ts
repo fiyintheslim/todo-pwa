@@ -5,10 +5,11 @@ const assets = manifest.filter((asset, i)=>manifest.indexOf(asset) === i)
 self.addEventListener("install", (event:any)=>{
     console.log("Installing service worker", assets)
     event.waitUntil(
-        caches.open(version)
+        caches.open("assets")
         .then((cache)=>{
             return cache.addAll(assets)
         })
+        .then(res=>console.log("Installed successfully"))
         .catch((err)=>{
             console.log("install error", err)
         })
@@ -16,7 +17,7 @@ self.addEventListener("install", (event:any)=>{
 })
 
 self.addEventListener("fetch", (event:any)=>{
-    console.log("in each request", event.request)
+    
     //stale revalidate method
     // event.respondWith(
     //     caches.match(event.request)
@@ -37,17 +38,14 @@ self.addEventListener("fetch", (event:any)=>{
     // )
     //using async and await 
     async function handleResponse (e:any){
-        const cachedResponse = await caches.match(e.request)
+        const assets = await caches.open("assets")
+        
         
         const networkFetch = await fetch(e.request.url)
-        const assets = await caches.open(version)
-        await assets.put(e.request, networkFetch);
-        if(cachedResponse){
-            return cachedResponse
-        }else{
-            return networkFetch
-        }
-
+        // const cachedResponse = await assets.match(e.request)
+        await assets.put(e.request, networkFetch.clone());
+        
+        return networkFetch
     }
 
     const cacheFirst = caches.match(event.request)
@@ -59,6 +57,35 @@ self.addEventListener("fetch", (event:any)=>{
         }
     })
 
-    event.respondWith(handleResponse(event))
+    const fetchFirst = fetch(event.request)
+    .then(res=>{
+        caches.open("assets")
+        .then(cache=>{
+            cache.put(event.request, res.clone())
+        })
+        .then(cached=>{
+            return res
+        })
+        
+    })
+    .catch((err)=>{
+        
+        const cached = caches.match(event.request);
+        console.log("Error loading data", cached)
+        return caches.match(event.request)
+    })
+
+    event.respondWith(
+        handleResponse(event)
+        .catch((err)=>{
+            console.log("Error loading data", err)
+            caches.open('assets').then(cache=>{
+                const match = cache.match(event.request)
+                console.log("Error loading data", err, match)
+                return match
+            })
+        })
+        )
 })
+
 
