@@ -78,15 +78,10 @@ self.addEventListener("fetch", (event:any)=>{
     event.respondWith(
         handleResponse(event)
         .catch((err)=>{
-            
-            caches.open('assets').then(cache=>{
-                cache.match(event.request)
-                .then((match)=>{
-                    console.log("Error loading data", err, match)
-                    return match
-                })
-                
-                
+            caches.match(event.request)
+            .then((match)=>{
+                console.log("Error loading data", err, match)
+                return match
             })
         })
         )
