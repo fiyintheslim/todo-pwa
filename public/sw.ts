@@ -18,24 +18,6 @@ self.addEventListener("install", (event:any)=>{
 
 self.addEventListener("fetch", (event:any)=>{
     
-    //stale revalidate method
-    // event.respondWith(
-    //     caches.match(event.request)
-    //     .then((resource) => {
-            
-    //         const fetchPromise = fetch(event.request)
-    //         .then((fetched)=>{
-    //             console.log("fetxhed", fetched)
-    //             caches.open("assets")
-    //             .then(cache=>{
-    //                 cache.put(event.request, fetched.clone())
-    //                 return fetched || resource
-    //             })
-    //         })
-           
-            
-    //     })
-    // )
     //using async and await 
     async function handleResponse (e:any){
         const cachedResponse = await caches.match(e.request)
@@ -75,7 +57,7 @@ self.addEventListener("fetch", (event:any)=>{
         console.log("Error loading data", cached)
         return caches.match(event.request)
     })
-
+    //stale while revalidate
     event.respondWith(
         caches.match(event.request)
         .then(cache=>{
@@ -96,13 +78,6 @@ self.addEventListener("fetch", (event:any)=>{
         )
 })
 
-// handleResponse(event)
-//         .catch((err)=>{
-//             caches.match(event.request)
-//             .then((match)=>{
-//                 console.log("Error loading data", err, match)
-//                 return match
-//             })
-//         })
+
 
 

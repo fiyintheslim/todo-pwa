@@ -11,7 +11,7 @@ import darkBG from "./images/bg-desktop-dark.jpg"
 import lightBG from "./images/bg-desktop-light.jpg"
 import TrashSVG from "./components/TrashSVG"
 import XSVG from "./components/XSVG"
-import {openDB, addData , loadData, removeOne, removeMany} from "./utilities/db"
+import {openDB, addData , loadData, removeOne, removeMany, updateOne} from "./utilities/db"
 
 
 
@@ -67,14 +67,17 @@ const App = () => {
         setExpanded(undefined)
     }
 
-    function x(e: React.MouseEvent<SVGSVGElement, MouseEvent>, id: string) {  
+    function x(e: React.MouseEvent<SVGSVGElement, MouseEvent>, id: string) { 
+        
         let newTodo = todo.map((ind) => {
             if (ind.id === id) {
                 return { ...ind, completed: !ind.completed }
             }
             return ind
         })
+        let toUpdate = newTodo.find((e)=>e.id === id) 
         addTodo(newTodo)
+        updateOne(toUpdate)
     }
 
 

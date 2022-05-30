@@ -63,9 +63,6 @@ export function addData (data:Todo) {
     const db = window.indexedDB;
     const request = db.open("todoDB", version);
     
-
-    
-
     request.onerror =  (e:any) => {
         console.log("Error saving data", e.target.error)
     }
@@ -133,5 +130,29 @@ export function removeMany (ids:Todo[]) {
             }
 
         })
+    }
+}
+
+export function updateOne (todo:Todo|undefined) {
+    const db = window.indexedDB;
+    const request = db.open("todoDB", version);
+
+    request.onsuccess = (e:any) => {
+        const list = e.target.result;
+        const transaction = list.transaction("list", "readwrite");
+        const store = transaction.objectStore("list");
+
+        const operation = store.put(todo);
+
+        operation.onsuccess = (e:any)=>{
+            console.log("Updated successfully")
+        }
+        operation.onerror = (e:any)=>{
+            console.log("Error while performing update operation", e.target.error)
+        }
+
+    }
+    request.onerror = (e:any) => {
+        console.log("Error loading for DB for update one", e.target.error)
     }
 }
