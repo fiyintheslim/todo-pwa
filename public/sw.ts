@@ -77,7 +77,7 @@ self.addEventListener("fetch", (event:any)=>{
     })
 
     event.respondWith(
-        handleResponse
+        handleResponse(event)
         )
 })
 
