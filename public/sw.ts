@@ -86,10 +86,10 @@ self.addEventListener("fetch", (event:any)=>{
                 })
             })
             .catch(err=>{
-                console.log("in catch block for fetch", err)
+                
                 return cache
             })
-            console.log("Res", networkResponse, cache)
+            
             return cache || networkResponse
         })
         
