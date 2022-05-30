@@ -41,7 +41,7 @@ self.addEventListener("fetch", (event:any)=>{
         const cachedResponse = await caches.match(e.request)
         
         
-        const networkFetch = await fetch(e.request.url)
+        const networkFetch = await fetch(e.request)
         // const cachedResponse = await assets.match(e.request)
         const assets = await caches.open("assets");
         await assets.put(e.request, networkFetch.clone())
@@ -77,7 +77,17 @@ self.addEventListener("fetch", (event:any)=>{
     })
 
     event.respondWith(
-        handleResponse(event)
+        caches.match(event.request)
+        .then(cache=>{
+            const networkResponse = fetch(event.request)
+            .then(res=>{
+                caches.open("assets").then(open=>{
+                    open.put(event.request, res.clone())
+                })
+            })
+            return cache || networkResponse
+        })
+        
         )
 })
 
