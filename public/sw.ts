@@ -79,12 +79,17 @@ self.addEventListener("fetch", (event:any)=>{
     event.respondWith(
         caches.match(event.request)
         .then(cache=>{
-            const networkResponse = fetch(event.request)
+            const networkResponse = fetch(event.request.url)
             .then(res=>{
                 caches.open("assets").then(open=>{
                     open.put(event.request, res.clone())
                 })
             })
+            .catch(err=>{
+                console.log("in catch block for fetch", err)
+                return cache
+            })
+            console.log("Res", networkResponse, cache)
             return cache || networkResponse
         })
         
