@@ -76,15 +76,17 @@ self.addEventListener("fetch", (event:any)=>{
     })
 
     event.respondWith(
-        handleResponse(event)
-        .catch((err)=>{
-            caches.match(event.request)
-            .then((match)=>{
-                console.log("Error loading data", err, match)
-                return match
-            })
-        })
+        cacheFirst
         )
 })
+
+// handleResponse(event)
+//         .catch((err)=>{
+//             caches.match(event.request)
+//             .then((match)=>{
+//                 console.log("Error loading data", err, match)
+//                 return match
+//             })
+//         })
 
 
