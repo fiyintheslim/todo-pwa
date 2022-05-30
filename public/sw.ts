@@ -38,14 +38,15 @@ self.addEventListener("fetch", (event:any)=>{
     // )
     //using async and await 
     async function handleResponse (e:any){
-        const assets = await caches.open("assets")
+        const cachedResponse = await caches.match(e.request)
         
         
-        const networkFetch = await fetch(e.request.url)
+        const networkFetch = await fetch(e.request)
         // const cachedResponse = await assets.match(e.request)
-        await assets.put(e.request, networkFetch.clone());
+        const assets = await caches.open("assets");
+        await assets.put(e.request, networkFetch.clone())
         console.log("saving", networkFetch)
-        return networkFetch
+        return cachedResponse || networkFetch
     }
 
     const cacheFirst = caches.match(event.request)
@@ -76,7 +77,7 @@ self.addEventListener("fetch", (event:any)=>{
     })
 
     event.respondWith(
-        cacheFirst
+        handleResponse
         )
 })
 
