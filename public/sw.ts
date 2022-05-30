@@ -41,7 +41,7 @@ self.addEventListener("fetch", (event:any)=>{
         const cachedResponse = await caches.match(e.request)
         
         
-        const networkFetch = await fetch(e.request)
+        const networkFetch = await fetch(e.request.url)
         // const cachedResponse = await assets.match(e.request)
         const assets = await caches.open("assets");
         await assets.put(e.request, networkFetch.clone())
