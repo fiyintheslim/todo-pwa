@@ -3,7 +3,7 @@ import {manifest, version} from "@parcel/service-worker"
 
 const assets = manifest.filter((asset, i)=>manifest.indexOf(asset) === i)
 self.addEventListener("install", (event:any)=>{
-    console.log("Installing service worker", assets)
+    
     event.waitUntil(
         caches.open("assets")
         .then((cache)=>{
@@ -27,7 +27,7 @@ self.addEventListener("fetch", (event:any)=>{
         // const cachedResponse = await assets.match(e.request)
         const assets = await caches.open("assets");
         await assets.put(e.request, networkFetch.clone())
-        console.log("saving", networkFetch)
+        
         return cachedResponse || networkFetch
     }
 
