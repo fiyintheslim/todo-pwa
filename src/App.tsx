@@ -17,7 +17,7 @@ import {openDB, addData , loadData, removeOne, removeMany, updateOne} from "./ut
 
 
 const App = () => {
-    const [isDark, setDark] = useState(true);
+    const [isDark, setDark] = useState(false);
     const [todo, addTodo] = useState<Todo[]>([]);
     const [expanded, setExpanded] = useState<Todo | undefined>(undefined)
     const dbRef = useRef<null | IDBOpenDBRequest>(null)
@@ -25,7 +25,9 @@ const App = () => {
     useEffect(()=>{
         const db = openDB()
         loadData(addTodo)
-        
+        if(window.matchMedia('(prefers-color-scheme:dark)').matches){
+            setDark(true)
+        }
     }, [])
 
     function getItem(item:Todo) {
